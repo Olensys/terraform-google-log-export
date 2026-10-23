@@ -13,14 +13,20 @@ Project log sink with a filter and exclusions, exporting to a Cloud Logging buck
 - Cloud Storage buckets use uniform bucket-level access and enforced public access prevention.
 - Log sinks and logging buckets take no labels; `labels` (merged with `context.extra_tags`) are applied to the Cloud Storage bucket and BigQuery dataset only.
 - The caller owns project API enablement beyond what the upstream submodules enable for their destination service.
+- `context.extra_tags` keys and values are normalised to valid GCP label syntax (lowercase, `[^a-z0-9_-]` → `-`, 63 chars); `labels` are applied verbatim and win.
 
 ## Usage
 
 ```hcl
-module "this" {
-  source = "git::https://github.com/Olensys/terraform-google-log-export.git?ref=v1.0.0"
+module "naming" {
+  source  = "git::https://github.com/Olensys/terraform-null-naming.git?ref=v1.0.1"
+  context = var.context
+}
 
-  name       = "example"
+module "this" {
+  source = "git::https://github.com/Olensys/terraform-google-log-export.git?ref=v1.1.0"
+
+  name       = module.naming.name
   project_id = "my-project"
   context = {
     organization = "olensys"
@@ -34,6 +40,8 @@ module "this" {
   destination = {
     type = "logging_bucket"
   }
+
+  labels = module.naming.labels
 }
 ```
 
