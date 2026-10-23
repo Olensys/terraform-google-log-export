@@ -1,6 +1,6 @@
-# __NAME__
+# terraform-google-log-export
 
-__DESCRIPTION__
+Project log sink with a filter and exclusions, exporting to a Cloud Logging bucket, Cloud Storage or BigQuery with the writer identity granted
 
 ## Opinions
 
@@ -10,7 +10,7 @@ __DESCRIPTION__
 
 ```hcl
 module "this" {
-  source = "git::https://github.com/Olensys/__NAME__.git?ref=v1.0.0"
+  source = "git::https://github.com/Olensys/terraform-google-log-export.git?ref=v1.0.0"
 
   name = "example"
   context = {
