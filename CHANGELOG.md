@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1
+
+### Fixes
+
+- partitioned BigQuery sink tables, stricter name validation, smoke-labelled destination tests
+
 ## 1.0.0
 
 - Project log sink with a filter and exclusions, exporting to a Cloud Logging bucket, Cloud Storage or BigQuery.
