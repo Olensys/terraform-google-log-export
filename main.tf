@@ -30,6 +30,9 @@ module "this" {
   unique_writer_identity = true
   include_children       = false
 
+  # BigQuery sinks write date-partitioned tables instead of sharded ones.
+  bigquery_options = local.type == "bigquery" ? { use_partitioned_tables = true } : null
+
   exclusions = [for e in var.exclusions : {
     name        = e.name
     description = e.description

@@ -9,6 +9,7 @@ Project log sink with a filter and exclusions, exporting to a Cloud Logging buck
 - Destination names derive from `name`: logging and Cloud Storage buckets are `<name>-logs` (so `name` is limited to 58 characters with `gcs`), the BigQuery dataset is `name` with hyphens turned into underscores.
 - `destination.location` defaults to `global` for `logging_bucket` and `US` for `gcs` and `bigquery`.
 - `destination.retention_days` (default 30) is the log bucket retention, a Cloud Storage `Delete` lifecycle rule on object age, or the BigQuery default table expiry. No locked retention policy is set.
+- BigQuery sinks write partitioned tables (`use_partitioned_tables = true`).
 - Cloud Storage buckets use uniform bucket-level access and enforced public access prevention.
 - Log sinks and logging buckets take no labels; `labels` (merged with `context.extra_tags`) are applied to the Cloud Storage bucket and BigQuery dataset only.
 - The caller owns project API enablement beyond what the upstream submodules enable for their destination service.
@@ -68,7 +69,7 @@ No resources.
 | <a name="input_context"></a> [context](#input\_context) | Deployment context used for naming, tagging and environment-dependent defaults. | <pre>object({<br/>    organization = string<br/>    environment  = string<br/>    application  = string<br/>    component    = optional(string)<br/>    owner        = string<br/>    cost_center  = string<br/>    extra_tags   = optional(map(string), {})<br/>  })</pre> | n/a | yes |
 | <a name="input_destination"></a> [destination](#input\_destination) | Where to export to. type is logging\_bucket, gcs or bigquery. location defaults to global for logging\_bucket and US otherwise. retention\_days is the log bucket retention, the GCS object expiry age or the BigQuery table expiry. | <pre>object({<br/>    type           = string<br/>    location       = optional(string)<br/>    retention_days = optional(number, 30)<br/>  })</pre> | n/a | yes |
 | <a name="input_filter"></a> [filter](#input\_filter) | Logging query filter selecting the entries to export. An empty string exports everything. | `string` | n/a | yes |
-| <a name="input_name"></a> [name](#input\_name) | Sink name. Lowercase letters, digits and hyphens. Destination names are derived from it (<name>-logs for buckets, underscores for the BigQuery dataset). | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | Sink name. Lowercase letters, digits and hyphens, 1 to 63 characters, not starting or ending with a hyphen. Destination names are derived from it (<name>-logs for buckets, underscores for the BigQuery dataset). | `string` | n/a | yes |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | ID of the project that owns the sink and the destination. | `string` | n/a | yes |
 | <a name="input_create"></a> [create](#input\_create) | Whether to create any resources. Set false to create nothing. | `bool` | `true` | no |
 | <a name="input_exclusions"></a> [exclusions](#input\_exclusions) | Exclusion filters applied to the sink. Entries matching an enabled exclusion are not exported. | <pre>list(object({<br/>    name        = string<br/>    filter      = string<br/>    description = optional(string, "")<br/>    disabled    = optional(bool, false)<br/>  }))</pre> | `[]` | no |

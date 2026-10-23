@@ -1,9 +1,9 @@
 variable "name" {
-  description = "Sink name. Lowercase letters, digits and hyphens. Destination names are derived from it (<name>-logs for buckets, underscores for the BigQuery dataset)."
+  description = "Sink name. Lowercase letters, digits and hyphens, 1 to 63 characters, not starting or ending with a hyphen. Destination names are derived from it (<name>-logs for buckets, underscores for the BigQuery dataset)."
   type        = string
   validation {
-    condition     = can(regex("^[a-z0-9-]{1,63}$", var.name))
-    error_message = "name must match ^[a-z0-9-]{1,63}$."
+    condition     = can(regex("^[a-z0-9]([a-z0-9-]*[a-z0-9])?$", var.name)) && length(var.name) <= 63
+    error_message = "name must be 1 to 63 characters of lowercase letters, digits and hyphens, and must not start or end with a hyphen."
   }
 }
 

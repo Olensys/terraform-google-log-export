@@ -41,6 +41,7 @@ run "test_logging_bucket_default" {
     error_message = "The sink name must be var.name."
   }
 
+  # SMOKE: the startswith check on destination_uri only proves which destination module was selected.
   assert {
     condition     = startswith(output.destination_uri, "logging.googleapis.com/")
     error_message = "The sink must route to the logging bucket URI."
@@ -118,6 +119,7 @@ run "test_gcs_destination" {
     error_message = "destination_type must reflect the gcs choice."
   }
 
+  # SMOKE: the startswith check on destination_uri only proves which destination module was selected.
   assert {
     condition     = startswith(output.destination_uri, "storage.googleapis.com/")
     error_message = "The sink must route to the storage bucket URI."
@@ -136,10 +138,12 @@ run "test_bigquery_destination" {
     error_message = "destination_type must reflect the bigquery choice."
   }
 
+  # SMOKE: the startswith check on destination_uri only proves which destination module was selected. The bigquery_options input to the sink module is not observable from a root test (locals and module inputs are not addressable); its rendering is left to upstream.
   assert {
     condition     = startswith(output.destination_uri, "bigquery.googleapis.com/")
     error_message = "The sink must route to the dataset URI."
   }
+
 }
 
 run "test_exclusions_passed" {
@@ -164,6 +168,26 @@ run "test_name_length_validation" {
 
   variables {
     name = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  }
+
+  expect_failures = [var.name]
+}
+
+run "test_name_hyphen_validation" {
+  command = plan
+
+  variables {
+    name = "-foo"
+  }
+
+  expect_failures = [var.name]
+}
+
+run "test_name_trailing_hyphen_validation" {
+  command = plan
+
+  variables {
+    name = "foo-"
   }
 
   expect_failures = [var.name]
