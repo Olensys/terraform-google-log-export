@@ -2,10 +2,6 @@
 run "apply_minimal" {
   command = apply
 
-  variables {
-    project_id = "example-project"
-  }
-
   module {
     source = "./examples/minimal"
   }
