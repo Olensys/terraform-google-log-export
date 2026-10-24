@@ -11,10 +11,16 @@ variable "project_id" {
   type        = string
 }
 
+variable "name" {
+  description = "Sink name. Deleted logging buckets keep their name for 7 days, so repeated test runs pass a unique value."
+  type        = string
+  default     = "olensys-test-logs"
+}
+
 module "this" {
   source = "../../"
 
-  name       = "olensys-test-logs"
+  name       = var.name
   project_id = var.project_id
   context = {
     organization = "olensys"

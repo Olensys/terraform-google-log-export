@@ -54,6 +54,10 @@ module "logbucket" {
   location                 = local.location
   retention_days           = var.destination.retention_days
   log_sink_writer_identity = module.this[0].writer_identity
+
+  # The bucket lives in the sink's own project, where Cloud Logging writes without a grant
+  # and returns no writer identity, so the upstream IAM member would get an empty member.
+  grant_write_permission_on_bkt = false
 }
 
 module "storage" {
