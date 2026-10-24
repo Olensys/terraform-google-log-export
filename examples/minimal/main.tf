@@ -14,12 +14,12 @@ variable "project_id" {
 module "this" {
   source = "../../"
 
-  name       = "example"
+  name       = "olensys-test-logs"
   project_id = var.project_id
   context = {
     organization = "olensys"
     environment  = "test"
-    application  = "example"
+    application  = "logs"
     owner        = "platform"
     cost_center  = "eng"
   }
