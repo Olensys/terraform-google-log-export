@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://github.com/Olensys/terraform-google-log-export/compare/v1.1.2...v1.1.3) (2026-10-24)
+
+
+### Bug Fixes
+
+* destroy ordering of the sink writer-identity grant ([#5](https://github.com/Olensys/terraform-google-log-export/issues/5)) ([2a65124](https://github.com/Olensys/terraform-google-log-export/commit/2a65124a646d454d969d54103574a1c69c75b79d))
+
 ## [1.1.2](https://github.com/Olensys/terraform-google-log-export/compare/v1.1.1...v1.1.2) (2026-10-24)
 
 
