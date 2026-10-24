@@ -1,7 +1,7 @@
 name: terraform-google-log-export
 cloud: google          # aws | google | common
 tier: capability          # primitive | capability | blueprint
-maturity: experimental    # experimental | stable | deprecated
+maturity: stable    # experimental | stable | deprecated
 description: Project log sink with a filter and exclusions, exporting to a Cloud Logging bucket, Cloud Storage or BigQuery with the writer identity granted
 owners: [platform]
 upstream: "terraform-google-modules/log-export/google 11.1.0 (+ //modules/logbucket, //modules/storage, //modules/bigquery)"  # e.g. "terraform-aws-modules/s3-bucket/aws 5.17.0"
