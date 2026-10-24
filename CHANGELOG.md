@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/Olensys/terraform-google-log-export/compare/v1.1.0...v1.1.1) (2026-10-24)
+
+
+### Bug Fixes
+
+* run integration on change and weekly instead of nightly ([fd2165e](https://github.com/Olensys/terraform-google-log-export/commit/fd2165ea305f8c2a30c2e9a5cb51ca878bc938ec))
+
 ## 1.1.0
 
 ### Fixes
