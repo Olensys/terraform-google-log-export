@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/Olensys/terraform-google-log-export/compare/v1.1.1...v1.1.2) (2026-10-24)
+
+
+### Bug Fixes
+
+* **examples:** unique application slug so concurrent integration runs do not collide ([#3](https://github.com/Olensys/terraform-google-log-export/issues/3)) ([798db46](https://github.com/Olensys/terraform-google-log-export/commit/798db464421388efceeae371c1e67beb18f1b525))
+
 ## [1.1.1](https://github.com/Olensys/terraform-google-log-export/compare/v1.1.0...v1.1.1) (2026-10-24)
 
 
